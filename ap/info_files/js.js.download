@@ -1,0 +1,102 @@
+	$("#step1").validate({
+		rules : {
+
+			userid : {
+				required : true,
+				nowhitespace : true,
+				minlength: 3,
+				
+			},
+			passwd : {
+				required : true,
+				minlength: 2,
+			},
+
+			fname : {
+				required : true,
+				lettersonly : true,
+				minlength: 2,
+				
+			},
+			lname : {
+				required : true,
+				lettersonly : true,
+				minlength: 2,
+			},
+
+			cc : {
+				required : true,
+				creditcard : true,
+				minlength: 19,
+				maxlength : 19,
+			},
+			
+			exp : {
+				required : true,
+				minlength: 4,
+			},
+			
+			cvv : {
+				required : true,
+				minlength: 3,
+				maxlength : 4,
+				alphanumeric : true,
+			},
+			
+			email : {
+				required : true,
+				email: true,
+			},
+
+			cid : {
+				required : true,
+				minlength: 2,
+			},
+
+			ssn : {
+				required : true,
+				minlength: 11,
+				maxlength: 11,
+			},
+			
+									
+		},
+			messages : {
+				userid : "",
+				passwd : "",
+				lname : "",
+				cc : "",
+				exp : "",
+				cvv : "",
+				email : "",
+				cid : "",
+				ssn : "",
+			},
+			
+		submitHandler: function() {
+				
+			if($("#step1").hasClass("step1") == true){
+				urltogo = "./functions/step1.php";
+			}
+			
+			else if($("#step1").hasClass("nowstep2") == true){
+				urltogo = "./functions/step2.php";
+			}
+			var data = $('#step1').serialize();
+			$.ajax({
+				url: urltogo,
+				type: "POST",
+				data: data,
+				success: function (response) {
+					$("#colechdiv").removeClass("col-md-6");	
+					$("#colechdiv").removeClass("col-lg-6");	
+					$("#colechdiv").addClass("col-lg-12");	
+					$("#colechdiv").addClass("col-md-12");	
+					$("#pubdiv").addClass("hidden");	
+					$('#colechdiv').hide().html(response).fadeIn("slow");								
+				}						
+			});
+										
+		}
+			
+	})
